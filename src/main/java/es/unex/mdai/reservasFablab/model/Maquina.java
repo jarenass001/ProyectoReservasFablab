@@ -1,9 +1,13 @@
 package es.unex.mdai.reservasFablab.model;
 
+import java.util.ArrayList;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -12,31 +16,35 @@ public class Maquina {
 	private String nombre;
 	@OneToOne
 	private Calendario calendario;
-	@OneToOne (mappedBy = "maquina")
-	private Reserva reserva;
+//	@OneToMany (mappedBy = "maquina")
+//	private ArrayList<Reserva> reservas;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	public Maquina() {
 		nombre="";
-		calendario=new Calendario();
-		reserva=null;
+		calendario=null;
+		//reservas=new ArrayList<Reserva>();
 	}
 
-	public Maquina(String nombre, Calendario calendario, Reserva reserva) {
+	public Maquina(String nombre, Calendario calendario) {
 		this.nombre = nombre;
 		this.calendario = calendario;
-		this.reserva = reserva;
+		//this.reservas = new ArrayList<Reserva>();
 	}
 
-	public Reserva getReserva() {
-		return reserva;
-	}
-
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
-	}
+//	public ArrayList<Reserva> getReservas() {
+//		return reservas;
+//	}
+//
+//	public void setReservas(ArrayList<Reserva> reservas) {
+//		this.reservas = reservas;
+//	}
+//	
+//	public boolean addReserva(Reserva r) {
+//		return reservas.add(r);
+//	}
 
 	public String getNombre() {
 		return nombre;
@@ -62,4 +70,8 @@ public class Maquina {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "Maquina [nombre=" + nombre + ", calendario=" + calendario + ", id=" + id + "]";
+	}
 }

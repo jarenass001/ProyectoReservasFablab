@@ -1,14 +1,16 @@
 package es.unex.mdai.reservasFablab.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
+@Entity
 public class Reserva {
 	
-	@OneToOne
+	@ManyToOne
 	private Maquina maquina;
 	private double precioTotal;
 	@ManyToOne
@@ -20,13 +22,20 @@ public class Reserva {
 	public Reserva() {
 		maquina=null;
 		precioTotal=0;
-		id=-1L;
 		usuario=null;
 	}
 
 	public Reserva(Maquina maquina, double precioTotal, Usuario usuario) {
 		this.maquina = maquina;
 		this.precioTotal = precioTotal;
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
@@ -52,6 +61,12 @@ public class Reserva {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Reserva [maquina=" + maquina + ", precioTotal=" + precioTotal + ", usuario=" + usuario + ", id=" + id
+				+ "]";
 	}
 	
 }

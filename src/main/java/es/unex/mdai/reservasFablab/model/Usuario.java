@@ -14,6 +14,7 @@ public class Usuario {
 
 	private String username;
 	private String password;
+	@OneToMany (mappedBy = "usuario")
 	private List<Reserva> reservas;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -22,7 +23,6 @@ public class Usuario {
 	public Usuario() {
 		username="";
 		password="";
-		id=-1L;
 		reservas = new ArrayList<Reserva>();
 	}
 
@@ -62,6 +62,12 @@ public class Usuario {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [username=" + username + ", password=" + password + ", reservas=" + reservas + ", id=" + id
+				+ "]";
 	}
 	
 }

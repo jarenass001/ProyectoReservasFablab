@@ -21,7 +21,6 @@ public class Calendario {
 
 	public Calendario() {
 		fechasLibres = new ArrayList<Date>();
-		id = -1L;
 		maquina=null;
 	}
 
@@ -45,6 +44,10 @@ public class Calendario {
 	public void setFechasLibres(ArrayList<Date> fechasLibres) {
 		this.fechasLibres = fechasLibres;
 	}
+	
+	public boolean addFecha(Date fecha) {
+		return fechasLibres.add(fecha);
+	}
 
 	public Long getId() {
 		return id;
@@ -52,6 +55,11 @@ public class Calendario {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Calendario [id=" + id + ", fechasLibres=" + fechasLibres + ", maquina=" + maquina + "]";
 	}
 
 }
