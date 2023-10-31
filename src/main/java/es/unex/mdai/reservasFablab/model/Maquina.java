@@ -25,13 +25,13 @@ public class Maquina {
 	public Maquina() {
 		nombre="";
 		calendario=null;
-		//reservas=new ArrayList<Reserva>();
+//		reservas=new ArrayList<Reserva>();
 	}
 
 	public Maquina(String nombre, Calendario calendario) {
 		this.nombre = nombre;
 		this.calendario = calendario;
-		//this.reservas = new ArrayList<Reserva>();
+//		this.reservas = new ArrayList<Reserva>();
 	}
 
 //	public ArrayList<Reserva> getReservas() {
