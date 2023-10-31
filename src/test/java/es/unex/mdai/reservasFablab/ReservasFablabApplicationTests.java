@@ -152,6 +152,10 @@ class ReservasFablabApplicationTests {
 		System.out.println("Fechas libres de las máquinas:");
 		iterable5 = calendarioRepository.findAll();
 		iterable5.forEach(calendario -> System.out.println(calendario.getFechasLibres().toString()));
+		
+		System.out.println("Las reservas del Usuario1");
+		iterable3 = reservaRepository.findByUsuario(user1);
+		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
 	}
 
 	public void borrarUsuario(Usuario u) {
