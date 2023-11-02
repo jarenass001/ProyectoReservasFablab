@@ -78,13 +78,6 @@ class ReservasFablabApplicationTests {
 		res3.setPrecioTotal(5.5);
 		res3.setUsuario(user2);
 
-//		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
-//		reservas.add(res1);
-//		reservas.add(res2);
-//		reservas.add(res3);
-
-		// reservas = (ArrayList<Reserva>) reservaRepository.saveAll(reservas);
-
 		calendarioRepository.save(cal1);
 		calendarioRepository.save(cal2);
 
@@ -98,64 +91,22 @@ class ReservasFablabApplicationTests {
 		reservaRepository.save(res2);
 		reservaRepository.save(res3);
 
-		System.out.println("Nombres de los usuarios:");
-		Iterable<Usuario> iterable2 = usuarioRepository.findAll();
-		iterable2.forEach(usuario -> System.out.println(usuario.getUsername()));
-
-		System.out.println("Presio de las reservas:");
-		Iterable<Reserva> iterable3 = reservaRepository.findAll();
-		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
-
-		System.out.println("Nombre de las máquinas:");
-		Iterable<Maquina> iterable4 = maquinaRepository.findAll();
-		iterable4.forEach(maquina -> System.out.println(maquina.getNombre()));
-
-		System.out.println("Fechas libres de las máquinas:");
-		Iterable<Calendario> iterable5 = calendarioRepository.findAll();
-		iterable5.forEach(calendario -> System.out.println(calendario.getFechasLibres().toString()));
+		mostrarInfo();
 
 		System.out.println("---------------------------BORRAMOS USUARIO2 Y SUS RESERVAS------------------------------");
 		borrarUsuario(user2);
 
-		System.out.println("Nombres de los usuarios:");
-		iterable2 = usuarioRepository.findAll();
-		iterable2.forEach(usuario -> System.out.println(usuario.getUsername()));
-
-		System.out.println("Presio de las reservas:");
-		iterable3 = reservaRepository.findAll();
-		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
-
-		System.out.println("Nombre de las máquinas:");
-		iterable4 = maquinaRepository.findAll();
-		iterable4.forEach(maquina -> System.out.println(maquina.getNombre()));
-
-		System.out.println("Fechas libres de las máquinas:");
-		iterable5 = calendarioRepository.findAll();
-		iterable5.forEach(calendario -> System.out.println(calendario.getFechasLibres().toString()));
+		mostrarInfo();
 
 		System.out.println("---------------------------ACTUALIZAMOS USUARIO1 A MI PANA MIGUEL------------------------------");
 		user1.setUsername("Mi pana Miguel");
 		actualizarUsuario(usuarioRepository.findById(user1.getId()).get(), user1);
 
-		System.out.println("Nombres de los usuarios:");
-		iterable2 = usuarioRepository.findAll();
-		iterable2.forEach(usuario -> System.out.println(usuario.getUsername()));
-
-		System.out.println("Presio de las reservas:");
-		iterable3 = reservaRepository.findAll();
-		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
-
-		System.out.println("Nombre de las máquinas:");
-		iterable4 = maquinaRepository.findAll();
-		iterable4.forEach(maquina -> System.out.println(maquina.getNombre()));
-
-		System.out.println("Fechas libres de las máquinas:");
-		iterable5 = calendarioRepository.findAll();
-		iterable5.forEach(calendario -> System.out.println(calendario.getFechasLibres().toString()));
+		mostrarInfo();
 		
 		System.out.println("Las reservas del Usuario1");
-		iterable3 = reservaRepository.findByUsuario(user1);
-		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
+		Iterable<Reserva> iterableReservas = reservaRepository.findByUsuario(user1);
+		iterableReservas.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
 	}
 
 	public void borrarUsuario(Usuario u) {
@@ -171,6 +122,24 @@ class ReservasFablabApplicationTests {
 		borrarUsuario(temp);
 		usuarioRepository.save(u);
 		reservaRepository.saveAll(reservasGuardar);
+	}
+	
+	public void mostrarInfo() {
+		System.out.println("Nombres de los usuarios:");
+		Iterable<Usuario> iterable2 = usuarioRepository.findAll();
+		iterable2.forEach(usuario -> System.out.println(usuario.getUsername()));
+
+		System.out.println("Presio de las reservas:");
+		Iterable<Reserva> iterable3 = reservaRepository.findAll();
+		iterable3.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
+
+		System.out.println("Nombre de las máquinas:");
+		Iterable<Maquina> iterable4 = maquinaRepository.findAll();
+		iterable4.forEach(maquina -> System.out.println(maquina.getNombre()));
+
+		System.out.println("Fechas libres de las máquinas:");
+		Iterable<Calendario> iterable5 = calendarioRepository.findAll();
+		iterable5.forEach(calendario -> System.out.println(calendario.getFechasLibres().toString()));
 	}
 
 }
