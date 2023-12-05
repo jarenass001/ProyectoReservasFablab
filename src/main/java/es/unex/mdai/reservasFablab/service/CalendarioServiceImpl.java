@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.unex.mdai.reservasFablab.model.Calendario;
+import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.repository.CalendarioRepository;
-import es.unex.mdai.reservasFablab.repository.UsuarioRepository;
 
 public class CalendarioServiceImpl implements CalendarioService {
 
@@ -48,8 +48,7 @@ public class CalendarioServiceImpl implements CalendarioService {
 
 	@Override
 	public Optional<Calendario> findCalendarioByMaquina(Maquina maquina) {
-		//TODO
-		return Optional.empty();
+		return calendarioR.findByMaquina(maquina);
 	}
 
 }

@@ -1,5 +1,7 @@
 package es.unex.mdai.reservasFablab.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,17 +20,22 @@ public class Reserva {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Date fecha;
 
 	public Reserva() {
 		maquina=null;
 		precioTotal=0;
 		usuario=null;
+		fecha=null;
 	}
 
-	public Reserva(Maquina maquina, double precioTotal, Usuario usuario) {
+	public Reserva(Maquina maquina, double precioTotal, Usuario usuario, Date fecha) {
 		this.maquina = maquina;
 		this.precioTotal = precioTotal;
 		this.usuario = usuario;
+		this.fecha = fecha;
+		
+		maquina.eliminarFecha(fecha);
 	}
 
 	public Usuario getUsuario() {
