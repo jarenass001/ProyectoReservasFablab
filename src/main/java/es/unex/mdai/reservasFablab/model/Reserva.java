@@ -35,7 +35,7 @@ public class Reserva {
 		this.usuario = usuario;
 		this.fecha = fecha;
 		
-		maquina.eliminarFecha(fecha);
+		maquina.eliminarFecha(this.fecha);
 	}
 
 	public Usuario getUsuario() {

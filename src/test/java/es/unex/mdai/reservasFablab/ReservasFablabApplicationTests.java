@@ -90,39 +90,39 @@ class ReservasFablabApplicationTests {
 		reservaRepository.save(res1);
 		reservaRepository.save(res2);
 		reservaRepository.save(res3);
-
-		mostrarInfo();
-
-		System.out.println("---------------------------BORRAMOS USUARIO2 Y SUS RESERVAS------------------------------");
-		borrarUsuario(user2);
-
-		mostrarInfo();
-
-		System.out.println("---------------------------ACTUALIZAMOS USUARIO1 A MI PANA MIGUEL------------------------------");
-		user1.setUsername("Mi pana Miguel");
-		actualizarUsuario(usuarioRepository.findById(user1.getId()).get(), user1);
-
-		mostrarInfo();
-		
-		System.out.println("Las reservas del Usuario1");
-		Iterable<Reserva> iterableReservas = reservaRepository.findByUsuario(user1);
-		iterableReservas.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
 	}
+		//mostrarInfo();
 
-	public void borrarUsuario(Usuario u) {
-		Iterable<Reserva> reservasBorrar = reservaRepository.findByUsuario(u);
-		reservasBorrar.forEach(reserva -> reservaRepository.delete(reserva));
-		usuarioRepository.delete(u);
-	}
+		//System.out.println("---------------------------BORRAMOS USUARIO2 Y SUS RESERVAS------------------------------");
+		//borrarUsuario(user2);
 
-	public void actualizarUsuario(Usuario antiguo, Usuario u) {
-		Usuario temp = usuarioRepository.findById(antiguo.getId()).get();
-		Iterable<Reserva> reservasGuardar = reservaRepository.findByUsuario(antiguo);
-		reservasGuardar.forEach(reserva -> reserva.setUsuario(u));
-		borrarUsuario(temp);
-		usuarioRepository.save(u);
-		reservaRepository.saveAll(reservasGuardar);
-	}
+		//mostrarInfo();
+
+//		System.out.println("---------------------------ACTUALIZAMOS USUARIO1 A MI PANA MIGUEL------------------------------");
+//		user1.setUsername("Mi pana Miguel");
+//		actualizarUsuario(usuarioRepository.findById(user1.getId()).get(), user1);
+//
+//		mostrarInfo();
+//		
+//		System.out.println("Las reservas del Usuario1");
+//		Iterable<Reserva> iterableReservas = reservaRepository.findByUsuario(user1);
+//		iterableReservas.forEach(reserva -> System.out.println(reserva.getPrecioTotal()));
+//	}
+//
+//	public void borrarUsuario(Usuario u) {
+//		Iterable<Reserva> reservasBorrar = reservaRepository.findByUsuario(u);
+//		reservasBorrar.forEach(reserva -> reservaRepository.delete(reserva));
+//		usuarioRepository.delete(u);
+//	}
+//
+//	public void actualizarUsuario(Usuario antiguo, Usuario u) {
+//		Usuario temp = usuarioRepository.findById(antiguo.getId()).get();
+//		Iterable<Reserva> reservasGuardar = reservaRepository.findByUsuario(antiguo);
+//		reservasGuardar.forEach(reserva -> reserva.setUsuario(u));
+//		borrarUsuario(temp);
+//		usuarioRepository.save(u);
+//		reservaRepository.saveAll(reservasGuardar);
+//	}
 	
 	public void mostrarInfo() {
 		System.out.println("Nombres de los usuarios:");
