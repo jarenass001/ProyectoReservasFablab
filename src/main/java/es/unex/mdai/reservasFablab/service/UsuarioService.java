@@ -8,8 +8,6 @@ import es.unex.mdai.reservasFablab.model.Usuario;
 public interface UsuarioService {
 
 	public Iterable <Usuario> crearUsuario(Usuario usuario);
-	
-//	public Iterable <Reserva> reservasUsuario(Long id);
 
 	public Optional<Usuario> findUsuarioById (Long usuarioId);
 

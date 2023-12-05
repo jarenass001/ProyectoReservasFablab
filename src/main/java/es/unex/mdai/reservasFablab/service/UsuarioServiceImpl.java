@@ -24,12 +24,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioR.findAll();
 	}
 
-//	@Override
-//	public Iterable<Reserva> reservasUsuario(Long id) {
-//		usuarioR.findReservasById();
-//		return null;
-//	}
-
 	@Override
 	public Optional<Usuario> findUsuarioById(Long usuarioId) {
 		return usuarioR.findById(usuarioId);

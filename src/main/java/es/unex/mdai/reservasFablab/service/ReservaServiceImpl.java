@@ -4,7 +4,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Reserva;
+import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.repository.ReservaRepository;
 
 public class ReservaServiceImpl implements ReservaService {
@@ -43,6 +45,17 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public Iterable<Reserva> findAllReservas() {
 		return reservaR.findAll();
+	}
+
+	@Override
+	public Optional<Reserva> findReservasByUsuario(Usuario usuario) {
+		return reservaR.findByUsuario(usuario);
+	}
+
+	@Override
+	public Optional<Reserva> findReservasByMaquina(Maquina maquina) {
+		// TODO Auto-generated method stub
+		return reservaR.findByMaquina(maquina);
 	}
 
 }
