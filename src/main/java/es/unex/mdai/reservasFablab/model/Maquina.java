@@ -1,5 +1,6 @@
 package es.unex.mdai.reservasFablab.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -73,5 +74,9 @@ public class Maquina {
 	@Override
 	public String toString() {
 		return "Maquina [nombre=" + nombre + ", calendario=" + calendario + ", id=" + id + "]";
+	}
+
+	public void eliminarFecha(Date fecha) {
+		calendario.getFechasLibres().remove(fecha);
 	}
 }
