@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/listarUsuarios.css}" />
+    <title>Detalles del Usuario</title>
+</head>
+<body>
+
+<div class="usuario-detalles-container">
+    <h2>Detalles del Usuario</h2>
+    
+    <table>
+        <tbody>
+            <tr>
+                <td><strong>ID:</strong></td>
+                <td th:text="${usuario.id}"></td>
+            </tr>
+            <tr>
+                <td><strong>Usuario:</strong></td>
+                <td th:text="${usuario.username}"></td>
+            </tr>
+            <tr>
+                <td><strong>Contraseña:</strong></td>
+                <td th:text="${usuario.password}"></td>
+            </tr>
+            <!-- Agrega más detalles del usuario según tu modelo -->
+        </tbody>
+    </table>
+    
+    <a th:href="@{'/admin/ListarUsuarios'}">Volver a la Lista de Usuarios</a>
+    
+    <!-- Botón para ver las reservas del usuario -->
+    <a th:href="@{'/reservas/' + ${usuario.id}}">Ver Reservas</a>
+</div>
+
+</body>
+</html>
