@@ -25,7 +25,7 @@
                 <td th:text="${usuario.id}"></td>
                 <td th:text="${usuario.username}"></td>
                 <td>
-                    <a th:href="@{'/user/VerUsuario/' + ${usuario.id}}">Ver Detalles</a>
+                    <a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/true'}">Ver Detalles</a>
                     <form th:action="@{'/admin/deleteUsuario/' + ${usuario.id}}" th:method="post" style="display: inline;">
                         <button type="submit">Borrar</button>
                     </form>
@@ -34,6 +34,7 @@
         </tbody>
     </table>
     <a th:href="@{'/admin/addUsuario'}">Añadir Usuario</a>
+    <a th:href="@{'/admin/menuPrincipal'}">Volver al Menú Principal</a>
 </div>
 
 </body>

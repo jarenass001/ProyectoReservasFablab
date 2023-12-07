@@ -29,10 +29,12 @@
         </tbody>
     </table>
     
-    <a th:href="@{'/admin/ListarUsuarios'}">Volver a la Lista de Usuarios</a>
+    <a th:if="${admin}" th:href="@{'/admin/ListarUsuarios'}">Volver a la Lista de Usuarios</a>
     
     <!-- Botón para ver las reservas del usuario -->
     <a th:href="@{'/reservas/' + ${usuario.id}}">Ver Reservas</a>
+    
+    <a th:href="@{'/' + (${admin} ? 'admin' : 'user') + '/menuPrincipal'}">Volver al Menú Principal</a>
 </div>
 
 </body>
