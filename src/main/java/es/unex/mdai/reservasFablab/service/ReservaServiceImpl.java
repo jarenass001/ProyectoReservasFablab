@@ -3,12 +3,14 @@ package es.unex.mdai.reservasFablab.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Reserva;
 import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.repository.ReservaRepository;
 
+@Service
 public class ReservaServiceImpl implements ReservaService {
 
 	private final ReservaRepository reservaR;
