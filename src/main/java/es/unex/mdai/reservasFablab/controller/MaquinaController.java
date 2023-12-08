@@ -22,7 +22,7 @@ public class MaquinaController {
 	}
 	
 	@GetMapping("/user/listarMaquinas")
-	public String listarMaquinas(Model model) {
+	public String verListaMaquinas(Model model) {
 		model.addAttribute("listaDeMaquinas", (List<Maquina>) maquinaService.findAllMaquinas());
 		return "listarMaquinas";
 	}
