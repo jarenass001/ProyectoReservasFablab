@@ -13,6 +13,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>id</th>
 				<th>Nombre de la Máquina</th>
 				<th>Acciones</th>
 			</tr>
@@ -20,7 +21,11 @@
 		<tbody>
 			<!-- Aquí se debería iterar sobre la lista de máquinas -->
 			<tr th:each="maquina : ${listaDeMaquinas}">
-				<td th:text="${maquina.nombre}"></td>
+				<td th:text="${maquina.id}"></td>
+				<td>
+					<!-- Enlace al detalle de la máquina -->
+					<a th:href="@{/user/verMaquina/{id}(id=${maquina.id})}" th:text="${maquina.nombre}"></a>
+				</td>
 				<td>
 					<!-- Enlace para ver las reservas de una máquina -->
 					<a th:href="@{'/maquinas/' + ${maquina.id} + '/reservas'}">Ver Reservas</a>
@@ -31,7 +36,7 @@
 
 	<!-- Formulario para añadir una nueva máquina -->
 	<h2>Añadir Máquina</h2>
-	<form method="post" th:action="@{/maquinas}">
+	<form method="post" th:action="@{/admin/addMaquina}">
 		<label>Nombre de la Máquina:</label>
 		<input type="text" name="nombre" required>
 		<button type="submit">Agregar Máquina</button>
@@ -39,11 +44,12 @@
 
 	<!-- Formulario para eliminar una máquina -->
 	<h2>Eliminar Máquina</h2>
-	<form method="post" th:action="@{/maquinas/eliminar}">
+	<form method="post" th:action="@{/admin/deleteMaquina/}">
 		<label>ID de la Máquina a Eliminar:</label>
-		<input type="text" name="id" required>
+		<input type="number" name="id" required>
 		<button type="submit">Eliminar Máquina</button>
 	</form>
+
 
 	<!-- Formulario para crear una reserva -->
 	<h2>Crear Reserva</h2>
