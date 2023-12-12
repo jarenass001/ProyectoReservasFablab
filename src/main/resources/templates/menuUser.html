@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/menu.css}" />
+    <title>Menú Principal</title>
+</head>
+<body>
+
+<div class="menu-container">
+    <h2>Menú Principal</h2>
+    
+    <div class="menu-buttons">
+        <a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${admin}}">Ver Tu Usuario</a>
+        <a th:href="@{'/user/ListarMaquinas'}">Listar Máquinas</a>
+    </div>
+
+</div>
+
+</body>
+</html>
