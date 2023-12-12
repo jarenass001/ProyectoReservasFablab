@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Lista de Máquinas</title>
+	<link rel="stylesheet" type="text/css" href="/css/estiloMaquinas.css">
+</head>
+
+<body>
+	<h1>Lista de Máquinas</h1>
+
+	<!-- Mostrar la lista de máquinas -->
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>Nombre de la Máquina</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Aquí se debería iterar sobre la lista de máquinas -->
+			<tr th:each="maquina : ${listaDeMaquinas}">
+				<td th:text="${maquina.id}"></td>
+				<td>
+					<!-- Enlace al detalle de la máquina -->
+					<a th:href="@{/user/verMaquina/{id}(id=${maquina.id})}" th:text="${maquina.nombre}"></a>
+				</td>
+				<td>
+					<!-- Enlace para ver las reservas de una máquina -->
+					<a th:href="@{'/maquinas/' + ${maquina.id} + '/reservas'}">Ver Reservas</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	
+
+	<!-- Formulario para eliminar una máquina -->
+	<h2>Eliminar Máquina</h2>
+	<form method="post" th:action="@{/admin/deleteMaquina/}">
+		<label>ID de la Máquina a Eliminar:</label>
+		<input type="number" name="id" required>
+		<button type="submit">Eliminar Máquina</button>
+	</form>
+
+
+	<!-- Formulario para crear una reserva -->
+	<h2>Crear Reserva</h2>
+	<form method="post" th:action="@{/maquinas/reservas}">
+		<label>ID de la Máquina para Reservar:</label>
+		<input type="text" name="id" required>
+		<!-- Otros campos para la reserva como fecha, usuario, etc. -->
+		<button type="submit">Crear Reserva</button>
+	</form>
+
+	<!-- Enlace para ver todas las reservas de una máquina -->
+	<h2>Ver Reservas de una Máquina</h2>
+	<form method="get" th:action="@{/maquinas/reservas}">
+		<label>ID de la Máquina:</label>
+		<input type="text" name="id" required>
+		<button type="submit">Ver Reservas</button>
+	</form>
+</body>
+
+</html>

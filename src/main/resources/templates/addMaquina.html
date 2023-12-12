@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Lista de Máquinas</title>
+	<link rel="stylesheet" type="text/css" href="/css/estiloMaquinas.css">
+</head>
+
+<body>
+	<h1>Añadir Máquinas</h1>
+	<!-- Formulario para añadir una nueva máquina -->
+	
+	<h2>Añadir Máquina</h2>
+	<form method="post" th:action="@{/admin/addMaquina}">
+		<label>Nombre de la Máquina:</label>
+		<input type="text" name="nombre" required>
+		<button type="submit">Agregar Máquina</button>
+	</form>
+</body>
+
+</html>

@@ -29,14 +29,19 @@ public class MaquinaController {
 		return "listarMaquinas";
 	}
 	
+	@GetMapping("/admin/addMaquina")
+	public String getAnadirMaquinas(Model model) {
+		return "addMaquina";
+	}
+	
 	@PostMapping("/admin/addMaquina")
 	public String anadirMaquinas(Maquina maquina, Model model) {
-		maquinaService.crearMaquina(maquina);
+		model.addAttribute("listaDeMaquinas", maquinaService.crearMaquina(maquina));
 		return "redirect:/user/listarMaquinas";
 	}
 	
-	@PostMapping("/admin/deleteMaquina")
-	public String deleteUsuario(Long id, Model model) {
+	@PostMapping("/admin/deleteMaquina/{id}")
+	public String deleteUsuario(@PathVariable("id") Long id, Model model) {
 		maquinaService.deleteMaquinaById(id);
 		return "redirect:/user/listarMaquinas";
 	}
