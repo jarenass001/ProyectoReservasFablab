@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Detalles de la Máquina</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		/* Estilos personalizados */
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+		}
+
+		.details-container {
+			max-width: 500px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			background-color: #f9f9f9;
+		}
+
+		.details-container h2 {
+			margin-bottom: 20px;
+		}
+
+		.btn {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="details-container">
+		<h2>Detalles de la Máquina</h2>
+		<p>ID de la Máquina: <span th:text="${maquina.id}"></span></p>
+		<p>Nombre de la Máquina: <span th:text="${maquina.nombre}"></span></p>
+		<a th:href="@{/maquinas/reservas/{id}(id=${maquina.id})}" class="btn btn-primary">Ver Reservas</a>
+	</div>
+</body>
+
+</html>

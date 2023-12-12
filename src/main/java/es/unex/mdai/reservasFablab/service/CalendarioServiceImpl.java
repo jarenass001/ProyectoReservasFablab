@@ -3,11 +3,13 @@ package es.unex.mdai.reservasFablab.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.unex.mdai.reservasFablab.model.Calendario;
 import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.repository.CalendarioRepository;
 
+@Service
 public class CalendarioServiceImpl implements CalendarioService {
 
 	private final CalendarioRepository calendarioR;
