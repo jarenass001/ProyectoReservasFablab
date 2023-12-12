@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seleccionar Hora</title>
+    <!-- Agrega aquí los estilos y scripts necesarios -->
+</head>
+
+<body>
+    <h2>Seleccionar Hora</h2>
+    <form id="horaForm" action="/procesarHora" method="post"> <!-- Cambia "/procesarHora" por tu ruta de procesamiento en el controlador -->
+        <select id="horaSeleccionada" name="horaReserva">
+            <!-- Iteración sobre las horas disponibles proporcionadas por el controlador -->
+            <option th:each="hora : ${horasDisponiblesSB}" th:value="${hora}" th:text="${hora}"></option>
+        </select>
+        <button type="submit">Seleccionar</button>
+    </form>
+
+    <script>
+        // No es necesario JavaScript para el procesamiento, ya que se utilizará el envío del formulario por POST
+    </script>
+</body>
+
+</html>

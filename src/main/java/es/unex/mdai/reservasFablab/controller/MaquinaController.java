@@ -1,5 +1,6 @@
 package es.unex.mdai.reservasFablab.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,24 @@ public class MaquinaController {
 	public String verMaquina(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("maquina", (Maquina) maquinaService.findMaquinaById(id).orElseThrow());
 		return "mostrarMaquina";
+	}
+	
+	@GetMapping("/user/verMaquina/crearReserva/{id}")
+	public String crearReserva(@PathVariable("id") Long id, Model model) {
+		ArrayList<String> fechasDisp = new ArrayList<String>();	
+		fechasDisp.add("2023-12-12");
+		model.addAttribute("maquina", (Maquina) maquinaService.findMaquinaById(id).orElseThrow());
+		return "crearReserva";
+	}
+	
+	@PostMapping("/user/verMaquina/seleccionarHora/{id}")
+	public String seleccionarHora(@PathVariable("id") Long id, Model model, String fechaReserva) {
+		ArrayList<String> horasDisp = new ArrayList<String>();	
+		horasDisp.add("18:00");
+		horasDisp.add("20:00");
+		model.addAttribute("horasDisponiblesSB", horasDisp);
+		model.addAttribute("maquina", (Maquina) maquinaService.findMaquinaById(id).orElseThrow());
+		return "seleccionarHora";
 	}
 	
 }
