@@ -48,4 +48,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioR.findAll();
 	}
 
+	@Override
+	public Optional<Usuario> findUsuarioByUsername(String username) {
+		return usuarioR.findByUsername(username);
+	}
+
 }

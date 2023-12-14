@@ -10,6 +10,8 @@ public interface UsuarioService {
 	public Iterable <Usuario> crearUsuario(Usuario usuario);
 
 	public Optional<Usuario> findUsuarioById (Long usuarioId);
+	
+	public Optional<Usuario> findUsuarioByUsername(String username);
 
 	public Iterable<Usuario> deleteUsuarioById(Long id);
 	
