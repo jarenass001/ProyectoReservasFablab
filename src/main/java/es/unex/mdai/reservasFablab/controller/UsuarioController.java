@@ -22,24 +22,26 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 
-	@GetMapping("/login")
+	@GetMapping("/")
 	public String login(Usuario usuario, Model model) {
+		model.addAttribute("usuario", usuario);
 		return "Login";
 	}
 
 	@PostMapping("/login")
 	public String loginComprobar(Usuario usuario, Model model) {
-		if (usuario.getUsername().equals("Pepito") && usuario.getPassword().equals("1234"))
-			return "index";
-		else {
-			return "Login";
+		if (usuario.getUsername().equals("admin") && usuario.getPassword().equals("1234"))
+			return "redirect:/admin/menuPrincipal";
+		else if(usuario.getUsername().equals("user") && usuario.getPassword().equals("1234")){
+			return "redirect:/user/menuPrincipal";
+		}else {
+			return "redirect:/login";
 		}
 	}
 
 	@GetMapping("/admin/menuPrincipal")
 	public String showAdminMenu(Model model, Usuario usuario, Boolean admin) {
-		usuarioService.crearUsuario(new Usuario("A", "1234"));
-		usuario = usuarioService.findAllUsers().iterator().next();
+		usuario = usuarioService.findUsuarioByUsername("admin").get();
 		admin = true;
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("admin", admin);
@@ -47,8 +49,7 @@ public class UsuarioController {
 	}
 	@GetMapping("/user/menuPrincipal")
 	public String showUserMenu(Model model, Usuario usuario, Boolean admin) {
-		usuarioService.crearUsuario(new Usuario("B", "1234"));
-		usuario = usuarioService.findAllUsers().iterator().next();
+		usuario = usuarioService.findUsuarioByUsername("user").get();
 		admin = false;
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("admin", admin);
