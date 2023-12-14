@@ -58,9 +58,9 @@ class ReservasFablabApplicationTests {
 		Usuario user2 = new Usuario();
 
 		user1.setPassword("1234");
-		user1.setUsername("user1");
-		user2.setPassword("qwerty");
-		user2.setUsername("user2");
+		user1.setUsername("admin");
+		user2.setPassword("1234");
+		user2.setUsername("user");
 
 		Reserva res1 = new Reserva();
 		Reserva res2 = new Reserva();
