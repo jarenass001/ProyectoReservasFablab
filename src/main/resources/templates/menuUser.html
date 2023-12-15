@@ -12,8 +12,8 @@
     <h2>Menú Principal</h2>
     
     <div class="menu-buttons">
-        <a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${admin}}">Ver Tu Usuario</a>
-        <a th:href="@{'/user/listarMaquinas'}">Listar Máquinas</a>
+        <a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${usuario.id}}">Ver Tu Usuario</a>
+        <a th:href="@{'/user/listarMaquinas/' + ${usuario.id}}">Listar Máquinas</a>
     </div>
 
 </div>

@@ -37,7 +37,7 @@
 		<p>Nombre de la Máquina: <span th:text="${maquina.nombre}"></span></p>
 		<a th:href="@{/maquinas/reservas/{id}(id=${maquina.id})}" class="btn btn-primary">Ver Reservas</a>
 		<a th:href="@{/user/verMaquina/crearReserva/{id}(id=${maquina.id})}" class="btn btn-primary">Crear Reserva</a>
-		<a th:href="@{'/user/listarMaquinas'}" class="btn btn-primary">Volver</a>
+		<a th:href="@{'/user/listarMaquinas/' + ${usuario.id}}" class="btn btn-primary">Volver</a>
 	</div>
 </body>
 

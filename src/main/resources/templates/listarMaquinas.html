@@ -25,16 +25,16 @@
                 <td th:text="${maquina.id}"></td>
                 <td th:text="${maquina.nombre}"></td>
                 <td>
-                    <a th:href="@{'/user/verMaquina/' + ${maquina.id}}">Ver Detalles</a>
-                    <form th:action="@{'/admin/deleteMaquina/' + ${maquina.id}}" th:method="post" style="display: inline;">
+                    <a th:href="@{'/user/verMaquina/' + ${usuario.id} + '/' + ${maquina.id}}">Ver Detalles</a>
+                    <form th:action="@{'/admin/deleteMaquina/' + ${usuario.id} + '/' + ${maquina.id}}" th:method="post" style="display: inline;">
                         <button type="submit">Borrar</button>
                     </form>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a th:href="@{'/admin/addMaquina'}">Añadir maquina</a>
-    <a th:href="@{'/admin/menuPrincipal'}">Volver al Menú Principal</a>
+    <a th:if="${admin}" th:href="@{'/admin/addMaquina/' + ${usuario.id}}">Añadir maquina</a>
+    <a th:href="@{'/' + (${admin} ? 'admin' : 'user') + '/menuPrincipal/' + ${usuario.id}}">Volver al Menú Principal</a>
 </div>
 
 </body>

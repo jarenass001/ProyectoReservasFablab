@@ -29,65 +29,88 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/login")
-	public String loginComprobar(Usuario usuario, Model model) {
-		if (usuario.getUsername().equals("admin") && usuario.getPassword().equals("1234"))
+	public String loginComprobar(Usuario usuario, Model model, boolean admin) {
+		if (usuario.getUsername().equals("admin") && usuario.getPassword().equals("1234")) {
 			return "redirect:/admin/menuPrincipal";
-		else if(usuario.getUsername().equals("user") && usuario.getPassword().equals("1234")){
+		}else if(usuario.getUsername().equals("user") && usuario.getPassword().equals("1234")){
 			return "redirect:/user/menuPrincipal";
 		}else {
-			return "redirect:/login";
+			return "redirect:/";
 		}
 	}
 
 	@GetMapping("/admin/menuPrincipal")
-	public String showAdminMenu(Model model, Usuario usuario, Boolean admin) {
+	public String showAdminMenu(Usuario usuario, Model model, boolean admin) {
 		usuario = usuarioService.findUsuarioByUsername("admin").get();
 		admin = true;
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("admin", admin);
-		return "menuAdmin"; // devuelve la vista a renderizar
+		if(usuario.getUsername().equals("admin")) {
+			model.addAttribute("admin", true);
+		}else {
+			model.addAttribute("admin", false);
+		}
+		return "menuAdmin";
 	}
 	@GetMapping("/user/menuPrincipal")
-	public String showUserMenu(Model model, Usuario usuario, Boolean admin) {
+	public String showUserMenu(Usuario usuario, Model model, boolean admin) {
 		usuario = usuarioService.findUsuarioByUsername("user").get();
 		admin = false;
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("admin", admin);
-		return "menuUser"; // devuelve la vista a renderizar
+		return "menuUser";
 	}
-	@GetMapping("/admin/ListarUsuarios")
-	public String showUsersTable(Model model) {
+	
+	@GetMapping("/admin/menuPrincipal/{id}")
+	public String showAdminMenu2(@PathVariable("id") Long id, Usuario usuario, Model model, boolean admin) {
+		usuario = usuarioService.findUsuarioById(id).get();
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("admin", admin);
+		return "menuAdmin";
+	}
+	@GetMapping("/user/menuPrincipal/{id}")
+	public String showUserMenu2(@PathVariable("id") Long id, Usuario usuario, Model model, boolean admin) {
+		usuario = usuarioService.findUsuarioById(id).get();
+		model.addAttribute("usuario", usuario);
+		if(usuario.getUsername().equals("admin")) {
+			model.addAttribute("admin", true);
+		}else {
+			model.addAttribute("admin", false);
+		}
+		return "menuUser";
+	}
+	@GetMapping("/admin/ListarUsuarios/{id}")
+	public String showUsersTable(@PathVariable("id") Long id, Usuario usuario, Model model) {
+		usuario = usuarioService.findUsuarioById(id).get();
 		List<Usuario> usuarioList = (List<Usuario>) usuarioService.findAllUsers();
 		model.addAttribute("usuarios", usuarioList);
 		return "ListarUsuarios"; // devuelve la vista a renderizar
 	}
-	@GetMapping("/user/VerUsuario/{id}/{admin}")
+	@GetMapping("/user/VerUsuario/{id}/{idConsulta}")
 	// @PathVariable: El parámetro forma parte de la URL
-	public String showMyUserData(@PathVariable("id") Long usuarioId, Model model,@PathVariable("admin") Boolean admin) {
-		model.addAttribute("usuario", usuarioService.findUsuarioById(usuarioId).get());
-		model.addAttribute("admin", admin);
+	public String showUpdateUsuarioForm(@PathVariable("idConsulta") Long usuarioId, @PathVariable("id") Long id, Model model) {
+		model.addAttribute("usuarioBuscar", usuarioService.findUsuarioById(usuarioId).get());
+		Usuario usuario = usuarioService.findUsuarioById(id).get();
+		model.addAttribute("usuario", usuario);
+		if(usuario.getUsername().equals("admin")) {
+			model.addAttribute("admin", true);
+		}else {
+			model.addAttribute("admin", false);
+		}
 		return "VerUsuario";
 	}
-	@GetMapping("/user/VerUsuario/{id}")
-	// @PathVariable: El parámetro forma parte de la URL
-	public String showUpdateUsuarioForm(@PathVariable("id") Long usuarioId, Model model, Boolean admin) {
-		model.addAttribute("usuario", usuarioService.findUsuarioById(usuarioId).get());
-		model.addAttribute("admin", admin);
-		return "VerUsuario";
-	}
-
-	@GetMapping("/admin/addUsuario")
-    public String showAddUsuarioForm(Usuario usuario) {    	 	
+	@GetMapping("/admin/addUsuario/{id}")
+    public String showAddUsuarioForm(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("usuario", usuarioService.findUsuarioById(id).get());
         return "addUsuario";
     }
-	@PostMapping("/admin/addUsuario")
-	public String addUsuario(Usuario usuario, Model model) {
-		model.addAttribute("usuarios", usuarioService.crearUsuario(usuario));
-		return "redirect:/admin/ListarUsuarios";
+	@PostMapping("/admin/addUsuario/{id}")
+	public String addUsuario(@PathVariable("id") Long id, String username, String password, Model model) {
+		usuarioService.crearUsuario(new Usuario(username, password));
+		return "redirect:/admin/ListarUsuarios/"+id;
 	}
-	@PostMapping("/admin/deleteUsuario/{id}")
-    public String deleteUsuario(@PathVariable("id") Long usuarioId, Model model) {
-        model.addAttribute("usuarios", usuarioService.deleteUsuarioById(usuarioId));        
-        return "redirect:/admin/ListarUsuarios";
+	@PostMapping("/admin/deleteUsuario/{id}/{idBorrar}")
+    public String deleteUsuario(@PathVariable("idBorrar") Long usuarioId,@PathVariable("id") Long id, Model model) {
+        usuarioService.deleteUsuarioById(usuarioId);        
+        return "redirect:/admin/ListarUsuarios/"+id;
     }
 }
