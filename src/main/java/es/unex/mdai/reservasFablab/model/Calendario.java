@@ -15,16 +15,16 @@ public class Calendario {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-	private ArrayList<Date> fechasLibres;
+	private ArrayList<Fecha> fechasLibres;
 	@OneToOne (mappedBy = "calendario")
 	private Maquina maquina;
 
 	public Calendario() {
-		fechasLibres = new ArrayList<Date>();
+		fechasLibres = new ArrayList<Fecha>();
 		maquina=null;
 	}
 
-	public Calendario(ArrayList<Date> fechasLibres, Maquina maquina) {
+	public Calendario(ArrayList<Fecha> fechasLibres, Maquina maquina) {
 		this.fechasLibres = fechasLibres;
 		this.maquina = maquina;
 	}
@@ -37,15 +37,15 @@ public class Calendario {
 		this.maquina = maquina;
 	}
 
-	public ArrayList<Date> getFechasLibres() {
+	public ArrayList<Fecha> getFechasLibres() {
 		return fechasLibres;
 	}
 
-	public void setFechasLibres(ArrayList<Date> fechasLibres) {
+	public void setFechasLibres(ArrayList<Fecha> fechasLibres) {
 		this.fechasLibres = fechasLibres;
 	}
 	
-	public boolean addFecha(Date fecha) {
+	public boolean addFecha(Fecha fecha) {
 		return fechasLibres.add(fecha);
 	}
 
@@ -59,7 +59,7 @@ public class Calendario {
 
 	@Override
 	public String toString() {
-		return "Calendario [id=" + id + ", fechasLibres=" + fechasLibres + ", maquina=" + maquina + "]";
+		return "Calendario [id=" + id + ", fechasLibres=" + fechasLibres + "]";
 	}
 
 }

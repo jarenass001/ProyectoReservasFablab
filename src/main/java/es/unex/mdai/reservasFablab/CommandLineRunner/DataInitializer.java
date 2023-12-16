@@ -31,13 +31,27 @@ public class DataInitializer implements CommandLineRunner {
     	Calendario cal1 = new Calendario();
 		Calendario cal2 = new Calendario();
 
-		cal1.addFecha(new Date(2023, 12, 28));
-		cal1.addFecha(new Date(2023, 12, 29));
-		cal1.addFecha(new Date(2023, 12, 30));
+		Date f1=new Date(123, 11, 28);
+		Date f2=new Date(123, 11, 29);
+		Date f3=new Date(123, 11, 30);
+		f1.setHours(17);
+		f2.setHours(18);
+		f3.setHours(19);
+		
+		Date f4=new Date(123, 11, 28);
+		Date f5=new Date(123, 11, 29);
+		Date f6=new Date(123, 11, 30);
+		f4.setHours(17);
+		f5.setHours(18);
+		f6.setHours(19);
+		
+		cal1.addFecha(f1);
+		cal1.addFecha(f2);
+		cal1.addFecha(f3);
 
-		cal2.addFecha(new Date(2023, 12, 28));
-		cal2.addFecha(new Date(2023, 12, 29));
-		cal2.addFecha(new Date(2023, 12, 30));
+		cal2.addFecha(f4);
+		cal2.addFecha(f5);
+		cal2.addFecha(f6);
 
 		Maquina maq1 = new Maquina();
 		Maquina maq2 = new Maquina();

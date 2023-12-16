@@ -3,102 +3,22 @@
 
 <head>
 	<title>Crear Reserva</title>
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			padding: 20px;
-		}
-
-		.form-container {
-			max-width: 400px;
-			margin: 0 auto;
-			padding: 20px;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			background-color: #f9f9f9;
-		}
-
-		.form-group {
-			margin-bottom: 20px;
-		}
-
-		.btn {
-			margin-top: 10px;
-		}
-	</style>
 </head>
 
 <body>
 	<div class="form-container">
 		<h2>Crear Reserva</h2>
-		<form th:action="@{'/user/verMaquina/seleccionarHora/' + ${maquina.id}}" method="post">
+		<form th:action="@{'/user/verMaquina/seleccionarHora/' + ${usuario.id} + '/' + ${maquina.id}}" method="post">
 			<div class="form-group">
-				<label for="fechaReserva">Fecha de Reserva:</label>
-				<input id="fechaReserva" type="text" name="fechaReserva" class="form-control" required>
-			</div>
-			<!-- <div class="form-group">
-				<label for="horaReserva">Hora de Reserva:</label>
-				<select id="horaReserva" name="horaReserva" class="form-control" required>
-					<option th:each="hora : ${horasDisponiblesSB}" th:value="${hora}" th:text="${hora}"></option>
+				<label for="fechaReserva">Selecciona la Fecha:</label>
+				<select id="fechaReserva" name="fechaReserva">
+					<!-- Iterar sobre las fechas disponibles proporcionadas desde el controlador -->
+					<option th:each="fecha : ${fechasDisponibles}" th:value="${fecha}" th:text="${fecha}"></option>
 				</select>
-			</div> 
-			<div class="form-group">
-				<label for="precio">Precio:</label>
-				<input id="precio" type="number" name="precio" class="form-control" required>
-			</div> -->
+			</div>
 			<button type="submit" class="btn btn-primary">Seleccionar hora</button>
 		</form>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			var fechasDisponibles = ["2023-12-10", "2023-12-15", "2023-12-20"];
-			var horasDisponibles = ["18:00", "20:00"];
-
-			$('#fechaReserva').datepicker({
-				format: 'yyyy-mm-dd',
-				autoclose: true,
-				beforeShowDay: function (date) {
-					var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-					return {enabled: fechasDisponibles.includes(formattedDate)};
-				},
-				/*function(dateText, inst) {
-					var selectedDate = new Date(dateText);
-					var formattedDate = selectedDate.toISOString().slice(0, 10);
-
-					//horasDisponibles = "${horasDisponibles}" //[formattedDate]; // Se actualizan las horas disponibles según la fecha seleccionada
-					$('#horaReserva').html('');
-					//horasDisponibles.forEach(function (hora) {
-					//    $('#horaReserva').append('<option value="' + hora + '">' + hora + '</option>');
-					//});
-					$('#horaReserva').append('<option th:each="hora : ${horasDisponibles}" th:value="${hora}" th:text="${hora}"></option>');
-				}*/
-			});
-		});
-	
-		function mostrarFecha() {
-			var fechasDisponibles = ["2023-12-10", "2023-12-15", "2023-12-20"];
-			$('#fechaReserva').datepicker({
-				format: 'yyyy-mm-dd',
-				autoclose: true,
-				beforeShowDay: function (date) {
-					var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-					return {enabled: fechasDisponibles.includes(formattedDate)};
-				}
-			});
-		}
-
-		function mostrarHoras() {
-			var horasDisponibles = ["18:00", "20:00"];
-			$('#horaReserva').append('<option th:each="hora : ${horasDisponibles}" th:value="${hora}" th:text="${hora}"></option>');
-		}
-
-	</script th:inline="javascript">
 </body>
 
 </html>

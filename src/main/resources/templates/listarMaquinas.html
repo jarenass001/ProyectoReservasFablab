@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/listarUsuarios.css}" />
-    <title>Lista de maquinas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/listarUsuarios.css}" />
+	<title>Lista de maquinas</title>
 </head>
+
 <body>
 
-<div class="maquinas-container">
-    <h2>Lista de Máquinas</h2>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Maquina</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí deberías iterar sobre la lista de maquinas y llenar la tabla -->
-            <tr th:each="maquina : ${listaDeMaquinas}">
-                <td th:text="${maquina.id}"></td>
-                <td th:text="${maquina.nombre}"></td>
-                <td>
-                    <a th:href="@{'/user/verMaquina/' + ${usuario.id} + '/' + ${maquina.id}}">Ver Detalles</a>
-                    <form th:action="@{'/admin/deleteMaquina/' + ${usuario.id} + '/' + ${maquina.id}}" th:method="post" style="display: inline;">
-                        <button type="submit">Borrar</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a th:if="${admin}" th:href="@{'/admin/addMaquina/' + ${usuario.id}}">Añadir maquina</a>
-    <a th:href="@{'/' + (${admin} ? 'admin' : 'user') + '/menuPrincipal/' + ${usuario.id}}">Volver al Menú Principal</a>
-</div>
+	<div class="maquinas-container">
+		<h2>Lista de Máquinas</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Maquina</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Aquí deberías iterar sobre la lista de maquinas y llenar la tabla -->
+				<tr th:each="maquina : ${listaDeMaquinas}">
+					<td th:text="${maquina.id}"></td>
+					<td th:text="${maquina.nombre}"></td>
+					<td>
+						<a th:href="@{'/user/verMaquina/' + ${usuario.id} + '/' + ${maquina.id}}">Ver Detalles</a>
+						<th:block th:if="${admin}">
+							<form th:action="@{'/admin/deleteMaquina/' + ${usuario.id} + '/' + ${maquina.id}}"
+								th:method="post" style="display: inline;">
+								<button type="submit">Borrar</button>
+							</form>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:if="${admin}" th:href="@{'/admin/addMaquina/' + ${usuario.id}}">Añadir maquina</a>
+		<a th:href="@{'/' + (${admin} ? 'admin' : 'user') + '/menuPrincipal/' + ${usuario.id}}">Volver al Menú
+			Principal</a>
+	</div>
 
 </body>
+
 </html>

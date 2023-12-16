@@ -15,6 +15,7 @@ import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.service.CalendarioService;
 import es.unex.mdai.reservasFablab.service.MaquinaService;
+import es.unex.mdai.reservasFablab.service.ReservaService;
 import es.unex.mdai.reservasFablab.service.UsuarioService;
 
 @Controller
@@ -78,9 +79,9 @@ public class MaquinaController {
 	public String crearReserva(@PathVariable("idMaquina") Long idMaquina, @PathVariable("id") Long id, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		ArrayList<String> fechasDisp = new ArrayList<String>();	
-		fechasDisp.add("2023-12-12");
-		model.addAttribute("maquina", (Maquina) maquinaService.findMaquinaById(id).orElseThrow());
+		Maquina m = (Maquina) maquinaService.findMaquinaById(id).orElseThrow();
+		model.addAttribute("maquina", m);
+		model.addAttribute("fechasDisponibles", calendarioService.findCalendarioByMaquina(m).orElseThrow().getFechasLibres());
 		return "crearReserva";
 	}
 	
