@@ -1,5 +1,6 @@
 package es.unex.mdai.reservasFablab.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import es.unex.mdai.reservasFablab.model.Maquina;
+import es.unex.mdai.reservasFablab.model.Reserva;
 import es.unex.mdai.reservasFablab.model.Usuario;
+import es.unex.mdai.reservasFablab.service.ReservaService;
 import es.unex.mdai.reservasFablab.service.UsuarioService;
 
 @Controller
 public class UsuarioController {
 	private final UsuarioService usuarioService;
+	private final ReservaService reservaService;
 
 	@Autowired
-	public UsuarioController(UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, ReservaService reservaService) {
 		super();
 		this.usuarioService = usuarioService;
+		this.reservaService = reservaService;
 	}
 
 	@GetMapping("/")
@@ -113,4 +119,24 @@ public class UsuarioController {
         usuarioService.deleteUsuarioById(usuarioId);        
         return "redirect:/admin/ListarUsuarios/"+id;
     }
+	
+	@GetMapping("/user/verReservas/{id}")
+	public String verReservas(@PathVariable("id") Long id, Model model) {
+		Usuario usuario = usuarioService.findUsuarioById(id).get();
+		model.addAttribute("usuario", usuario);
+		if (reservaService.findReservasByUsuario(usuario).isPresent()) {
+			model.addAttribute("listaDeReservas", reservaService.findReservasByUsuario(usuario).get());
+		} else {
+			model.addAttribute("listaDeReservas", new ArrayList<Reserva>());
+		}
+		return "listarReservasUser";
+	}
+	
+	@PostMapping("/user/deleteReserva/{id}/{reservaId}")
+	public String eliminarReserva(@PathVariable("id") Long id, @PathVariable("reservaId") Long reservaId, Model model) {
+		Usuario usuario = usuarioService.findUsuarioById(id).get();
+		model.addAttribute("usuario", usuario);
+		reservaService.deleteReservaById(reservaId);
+		return "redirect:/user/verReservas/"+ id;
+	}
 }

@@ -1,6 +1,7 @@
 package es.unex.mdai.reservasFablab.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
@@ -76,7 +77,11 @@ public class Maquina {
 		return "Maquina [nombre=" + nombre + ", calendario=" + calendario + ", id=" + id + "]";
 	}
 
-	public void eliminarFecha(Date fecha) {
-		calendario.getFechasLibres().remove(fecha);
+	public void eliminarFecha(Timestamp fecha) {
+		Fecha fecha2 = new Fecha(new Date(fecha.getYear(), fecha.getMonth(), fecha.getDate()), String.valueOf(fecha.getHours()+":"+fecha.getMinutes()+"0"), getCalendario());
+		System.out.println(calendario.getFechasLibres());
+		System.out.println(fecha2);
+		//calendario.getFechasLibres().remove(fecha2);
+		calendario.eliminarFecha(fecha2);
 	}
 }

@@ -6,9 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import es.unex.mdai.reservasFablab.model.Calendario;
+import es.unex.mdai.reservasFablab.model.Fecha;
 import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.repository.CalendarioRepository;
+import es.unex.mdai.reservasFablab.repository.FechaRepository;
 import es.unex.mdai.reservasFablab.repository.MaquinaRepository;
 import es.unex.mdai.reservasFablab.repository.UsuarioRepository;
 
@@ -18,11 +20,13 @@ public class DataInitializer implements CommandLineRunner {
     private final UsuarioRepository usuarioRepository;
     private final MaquinaRepository maquinaRepository;
     private final CalendarioRepository calendarioRepository;
+    private final FechaRepository fechaRepository;
 
-    public DataInitializer(UsuarioRepository usuarioRepository, MaquinaRepository maquinaRepository, CalendarioRepository calendarioRepository) {
+    public DataInitializer(UsuarioRepository usuarioRepository, MaquinaRepository maquinaRepository, CalendarioRepository calendarioRepository, FechaRepository fechaRepository) {
         this.usuarioRepository = usuarioRepository;
         this.maquinaRepository = maquinaRepository;
         this.calendarioRepository = calendarioRepository;
+        this.fechaRepository = fechaRepository;
     }
 
     @Override
@@ -31,27 +35,15 @@ public class DataInitializer implements CommandLineRunner {
     	Calendario cal1 = new Calendario();
 		Calendario cal2 = new Calendario();
 
-		Date f1=new Date(123, 11, 28);
-		Date f2=new Date(123, 11, 29);
-		Date f3=new Date(123, 11, 30);
-		f1.setHours(17);
-		f2.setHours(18);
-		f3.setHours(19);
-		
-		Date f4=new Date(123, 11, 28);
-		Date f5=new Date(123, 11, 29);
-		Date f6=new Date(123, 11, 30);
-		f4.setHours(17);
-		f5.setHours(18);
-		f6.setHours(19);
-		
-		cal1.addFecha(f1);
-		cal1.addFecha(f2);
-		cal1.addFecha(f3);
-
-		cal2.addFecha(f4);
-		cal2.addFecha(f5);
-		cal2.addFecha(f6);
+		Fecha f1 = new Fecha(new Date(123, 11, 28), "17:00");
+		Fecha f2 = new Fecha(new Date(123, 11, 28), "18:00");
+		Fecha f3 = new Fecha(new Date(123, 11, 28), "19:00");
+		Fecha f4 = new Fecha(new Date(123, 11, 29), "17:00");
+		Fecha f5 = new Fecha(new Date(123, 11, 29), "18:00");
+		Fecha f6 = new Fecha(new Date(123, 11, 29), "19:00");
+		Fecha f7 = new Fecha(new Date(123, 11, 30), "17:00");
+		Fecha f8 = new Fecha(new Date(123, 11, 30), "18:00");
+		Fecha f9 = new Fecha(new Date(123, 11, 30), "19:00");
 
 		Maquina maq1 = new Maquina();
 		Maquina maq2 = new Maquina();
@@ -70,20 +62,45 @@ public class DataInitializer implements CommandLineRunner {
 		user2.setPassword("1234");
 		user2.setUsername("user");
     	
-    	calendarioRepository.save(cal1);
+		f1.setCal(cal1);
+		f2.setCal(cal1);
+		f3.setCal(cal1);
+		f4.setCal(cal1);
+		f5.setCal(cal2);
+		f6.setCal(cal2);
+		f7.setCal(cal2);
+		f8.setCal(cal2);
+		f9.setCal(cal2);
+		
+		calendarioRepository.save(cal1);
 		calendarioRepository.save(cal2);
-
+		
+		fechaRepository.save(f1);
+		fechaRepository.save(f2);
+		fechaRepository.save(f3);
+		fechaRepository.save(f4);
+		fechaRepository.save(f5);
+		fechaRepository.save(f6);
+		fechaRepository.save(f7);
+		fechaRepository.save(f8);
+		fechaRepository.save(f9);
+		
+		cal1.addFecha(f1);
+		cal1.addFecha(f2);
+		cal1.addFecha(f3);
+		cal1.addFecha(f4);
+		cal2.addFecha(f5);
+		cal2.addFecha(f6);
+		cal2.addFecha(f7);
+		cal2.addFecha(f8);
+		cal2.addFecha(f9);
+		
+		
 		usuarioRepository.save(user1);
 		usuarioRepository.save(user2);
 
 		maquinaRepository.save(maq1);
 		maquinaRepository.save(maq2);
-    	
-    	
-    	
-    	
-    	
-    	
     	
 //        // Crear usuarios
 //        Usuario usuario1 = new Usuario("usuario1", "password1");

@@ -1,6 +1,7 @@
 package es.unex.mdai.reservasFablab.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ public class Reserva {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Date fecha;
+	private Timestamp fecha;
 
 	public Reserva() {
 		maquina=null;
@@ -29,13 +30,21 @@ public class Reserva {
 		fecha=null;
 	}
 
-	public Reserva(Maquina maquina, double precioTotal, Usuario usuario, Date fecha) {
+	public Reserva(Maquina maquina, double precioTotal, Usuario usuario, Timestamp fecha) {
 		this.maquina = maquina;
 		this.precioTotal = precioTotal;
 		this.usuario = usuario;
 		this.fecha = fecha;
 		
 		maquina.eliminarFecha(this.fecha);
+	}
+
+	public Timestamp getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Timestamp fecha) {
+		this.fecha = fecha;
 	}
 
 	public Usuario getUsuario() {
@@ -73,7 +82,7 @@ public class Reserva {
 	@Override
 	public String toString() {
 		return "Reserva [maquina=" + maquina + ", precioTotal=" + precioTotal + ", usuario=" + usuario + ", id=" + id
-				+ "]";
+				+ ", fecha=" + fecha + "]";
 	}
 	
 }

@@ -2,19 +2,49 @@ package es.unex.mdai.reservasFablab.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Fecha {
 	
-	Date dia;
-	String hora;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne
+	private Calendario cal;
+	
+	private Date dia;
+	private String hora;
 
 	public Fecha() {
-		dia = new Date(0);
-		hora = "";
+		this.dia = new Date(0);
+		this.hora = "";
+		this.cal = new Calendario();
 	}
 	
 	public Fecha(Date dia, String hora) {
 		this.dia = dia;
 		this.hora = hora;
+		this.cal = new Calendario();
+	}
+	
+	public Fecha(Date dia, String hora, Calendario cal) {
+		this.dia = dia;
+		this.hora = hora;
+		this.cal = cal;
+	}
+
+	public Calendario getCal() {
+		return cal;
+	}
+
+	public void setCal(Calendario cal) {
+		this.cal = cal;
 	}
 
 	public Date getDia() {
@@ -35,7 +65,7 @@ public class Fecha {
 
 	@Override
 	public String toString() {
-		return "Fecha [dia=" + dia + ", hora=" + hora + "]";
+		return "" + dia + " " + hora + "";
 	}
 	
 }

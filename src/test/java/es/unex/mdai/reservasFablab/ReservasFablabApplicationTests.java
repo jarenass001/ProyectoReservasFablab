@@ -37,13 +37,13 @@ class ReservasFablabApplicationTests {
 		Calendario cal1 = new Calendario();
 		Calendario cal2 = new Calendario();
 
-		cal1.addFecha(new Date(2023, 10, 28));
-		cal1.addFecha(new Date(2023, 10, 29));
-		cal1.addFecha(new Date(2023, 10, 30));
-
-		cal2.addFecha(new Date(2023, 11, 28));
-		cal2.addFecha(new Date(2023, 11, 29));
-		cal2.addFecha(new Date(2023, 11, 30));
+//		cal1.addFecha(new Date(2023, 10, 28));
+//		cal1.addFecha(new Date(2023, 10, 29));
+//		cal1.addFecha(new Date(2023, 10, 30));
+//
+//		cal2.addFecha(new Date(2023, 11, 28));
+//		cal2.addFecha(new Date(2023, 11, 29));
+//		cal2.addFecha(new Date(2023, 11, 30));
 
 		Maquina maq1 = new Maquina();
 		Maquina maq2 = new Maquina();

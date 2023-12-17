@@ -2,11 +2,14 @@ package es.unex.mdai.reservasFablab.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -15,13 +18,16 @@ public class Calendario {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-	private ArrayList<Fecha> fechasLibres;
+	
+	@OneToMany (mappedBy = "cal")
+	private List<Fecha> fechasLibres;
+	
 	@OneToOne (mappedBy = "calendario")
 	private Maquina maquina;
 
 	public Calendario() {
-		fechasLibres = new ArrayList<Fecha>();
 		maquina=null;
+		fechasLibres = new ArrayList<Fecha>();
 	}
 
 	public Calendario(ArrayList<Fecha> fechasLibres, Maquina maquina) {
@@ -29,6 +35,15 @@ public class Calendario {
 		this.maquina = maquina;
 	}
 
+	public void eliminarFecha(Fecha f) {
+		for (int i=0; i<fechasLibres.size(); i++) {
+			if (fechasLibres.get(i).getDia() == f.getDia() && fechasLibres.get(i).getHora().equals(f.getHora())) {
+				fechasLibres.remove(i);
+				return;
+			}
+		}
+	}
+	
 	public Maquina getMaquina() {
 		return maquina;
 	}
@@ -37,7 +52,7 @@ public class Calendario {
 		this.maquina = maquina;
 	}
 
-	public ArrayList<Fecha> getFechasLibres() {
+	public List<Fecha> getFechasLibres() {
 		return fechasLibres;
 	}
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/listarUsuarios.css}" />
+	<title>Lista de Reservas</title>
+</head>
+
+<body>
+
+	<div class="reservas-container">
+		<h2>Lista de Reservas</h2>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Fecha de Reserva</th>
+					<th>Precio</th>
+					<th>Usuario</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Aquí deberías iterar sobre la lista de reservas y llenar la tabla -->
+				<tr th:each="reserva : ${listaDeReservas}">
+					<td th:text="${reserva.id}"></td>
+					<td th:text="${reserva.fecha}"></td>
+					<td th:text="${reserva.precioTotal}"></td>
+					<td th:text="${reserva.usuario}"></td>
+					<td>
+						<th:block th:if="${admin}">
+							<form th:action="@{'/admin/deleteReserva/' + ${usuario.id} + '/' + ${maquina.id} + '/' + ${reserva.id}}"
+								th:method="post" style="display: inline;">
+								<button type="submit">Borrar</button>
+							</form>
+						</th:block>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Aquí podrías añadir enlaces o botones adicionales si es necesario -->
+		<a th:href="@{'/user/verMaquina/' + ${usuario.id} + '/' + ${maquina.id}}">Volver al Menú de la máquina</a>
+	</div>
+
+</body>
+
+</html>
