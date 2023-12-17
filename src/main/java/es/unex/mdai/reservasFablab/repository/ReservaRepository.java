@@ -9,6 +9,6 @@ import es.unex.mdai.reservasFablab.model.Reserva;
 import es.unex.mdai.reservasFablab.model.Usuario;
 
 public interface ReservaRepository extends CrudRepository<Reserva, Long> {
-	Optional<Reserva> findByUsuario(Usuario usuario);
-	Optional<Reserva> findByMaquina(Maquina maquina);
+	Iterable<Reserva> findByUsuario(Usuario usuario);
+	Iterable<Reserva> findByMaquina(Maquina maquina);
 }

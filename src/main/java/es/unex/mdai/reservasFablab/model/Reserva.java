@@ -35,8 +35,6 @@ public class Reserva {
 		this.precioTotal = precioTotal;
 		this.usuario = usuario;
 		this.fecha = fecha;
-		
-		maquina.eliminarFecha(this.fecha);
 	}
 
 	public Timestamp getFecha() {

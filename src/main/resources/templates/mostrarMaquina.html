@@ -36,11 +36,15 @@
 		<p>ID de la Máquina: <span th:text="${maquina.id}"></span></p>
 		<p>Nombre de la Máquina: <span th:text="${maquina.nombre}"></span></p>
 		<th:block th:if="${admin}">
-			<a th:href="@{'/admin/maquinas/reservas/' + ${usuario.id} + '/' + ${maquina.id}}" class="btn btn-primary">Ver Reservas</a>
+			<a th:href="@{'/admin/maquinas/reservas/' + ${usuario.id} + '/' + ${maquina.id}}"
+				class="btn btn-primary">Ver Reservas</a>
 		</th:block>
 		<a th:href="@{'/user/verMaquina/crearReserva/' + ${usuario.id} + '/' + ${maquina.id}}"
 			class="btn btn-primary">Crear Reserva</a>
 		<a th:href="@{'/user/listarMaquinas/' + ${usuario.id}}" class="btn btn-primary">Volver</a>
+	</div>
+	<div th:if="${alerta}" class="alert alert-info" role="alert">
+		<p th:text="${alerta}"></p>
 	</div>
 </body>
 

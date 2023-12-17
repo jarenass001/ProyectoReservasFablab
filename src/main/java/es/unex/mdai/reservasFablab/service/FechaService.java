@@ -1,12 +1,13 @@
 package es.unex.mdai.reservasFablab.service;
 
-import java.util.Optional;
+import java.sql.Date;
 
-import es.unex.mdai.reservasFablab.model.Fecha;
-import es.unex.mdai.reservasFablab.model.Maquina;
+import es.unex.mdai.reservasFablab.model.Calendario;
 
 public interface FechaService {
-
-//	public Optional <Fecha> findFechaByStringMaquina(String fechaHora, Maquina m);
+	
+	public void deleteFechaByDiaHoraCalendario(Date dia, String hora, Calendario calendario);
+	
+	public void createFecha(Date dia, String hora, Calendario calendario);
 	
 }

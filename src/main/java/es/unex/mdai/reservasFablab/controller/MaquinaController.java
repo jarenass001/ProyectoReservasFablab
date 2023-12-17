@@ -18,6 +18,7 @@ import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Reserva;
 import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.service.CalendarioService;
+import es.unex.mdai.reservasFablab.service.FechaService;
 import es.unex.mdai.reservasFablab.service.MaquinaService;
 import es.unex.mdai.reservasFablab.service.ReservaService;
 import es.unex.mdai.reservasFablab.service.UsuarioService;
@@ -29,14 +30,16 @@ public class MaquinaController {
 	private MaquinaService maquinaService;
 	private CalendarioService calendarioService;
 	private ReservaService reservaService;
+	private FechaService fechaService;
 
 	@Autowired
 	public MaquinaController(UsuarioService usuarioService, MaquinaService maquinaService,
-			CalendarioService calendarioService, ReservaService reservaService) {
+			CalendarioService calendarioService, ReservaService reservaService, FechaService fechaService) {
 		this.usuarioService = usuarioService;
 		this.maquinaService = maquinaService;
 		this.calendarioService = calendarioService;
 		this.reservaService = reservaService;
+		this.fechaService = fechaService;
 		System.out.println("\t Constructor MaquinaController ");
 	}
 
@@ -95,8 +98,17 @@ public class MaquinaController {
 	public String crearReserva(@PathVariable("idMaquina") Long idMaquina, @PathVariable("id") Long id, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		Maquina m = (Maquina) maquinaService.findMaquinaById(id).orElseThrow();
+		Maquina m = (Maquina) maquinaService.findMaquinaById(idMaquina).orElseThrow();
 		model.addAttribute("maquina", m);
+		if (calendarioService.findCalendarioByMaquina(m).orElseThrow().getFechasLibres().isEmpty()) {
+			if (usuario.getUsername().equals("admin")) {
+				model.addAttribute("admin", true);
+			} else {
+				model.addAttribute("admin", false);
+			}
+			model.addAttribute("alerta", "No hay horas disponibles");
+			return "mostrarMaquina";
+		}
 		model.addAttribute("fechasDisponibles",
 				calendarioService.findCalendarioByMaquina(m).orElseThrow().getFechasLibres());
 		return "crearReserva";
@@ -107,7 +119,7 @@ public class MaquinaController {
 			String fechaReserva) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		Maquina m = (Maquina) maquinaService.findMaquinaById(id).orElseThrow();
+		Maquina m = (Maquina) maquinaService.findMaquinaById(idMaquina).orElseThrow();
 		model.addAttribute("maquina", m);
 		Timestamp fecha = new Timestamp(Integer.parseInt(fechaReserva.split(" ")[0].split("-")[0]) - 1900,
 				Integer.parseInt(fechaReserva.split(" ")[0].split("-")[1]) - 1,
@@ -115,6 +127,7 @@ public class MaquinaController {
 				Integer.parseInt(fechaReserva.split(" ")[1].split(":")[0]),
 				Integer.parseInt(fechaReserva.split(" ")[1].split(":")[1]), 0, 0);
 		reservaService.crearReserva(new Reserva(m, 5, usuario, fecha));
+		fechaService.deleteFechaByDiaHoraCalendario(new Date(fecha.getYear(), fecha.getMonth(), fecha.getDate()), String.valueOf(fecha.getHours()+":"+fecha.getMinutes()+"0"), m.getCalendario());
 		return "redirect:/user/verMaquina/" + id + "/" + idMaquina;
 	}
 
@@ -123,13 +136,9 @@ public class MaquinaController {
 			Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		Maquina m = (Maquina) maquinaService.findMaquinaById(id).orElseThrow();
+		Maquina m = (Maquina) maquinaService.findMaquinaById(idMaquina).orElseThrow();
 		model.addAttribute("maquina", m);
-		if (reservaService.findReservasByMaquina(m).isPresent()) {
-			model.addAttribute("listaDeReservas", reservaService.findReservasByMaquina(m).get());
-		} else {
-			model.addAttribute("listaDeReservas", new ArrayList<Reserva>());
-		}
+		model.addAttribute("listaDeReservas", reservaService.findReservasByMaquina(m));
 		if (usuario.getUsername().equals("admin")) {
 			model.addAttribute("admin", true);
 		} else {
@@ -143,22 +152,12 @@ public class MaquinaController {
 			@PathVariable("reservaId") Long reservaId, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		Maquina m = (Maquina) maquinaService.findMaquinaById(id).orElseThrow();
+		Maquina m = (Maquina) maquinaService.findMaquinaById(idMaquina).orElseThrow();
 		model.addAttribute("maquina", m);
+		Reserva r = reservaService.findReservaById(reservaId).get();
+		fechaService.createFecha(new Date(r.getFecha().getYear(), r.getFecha().getMonth(), r.getFecha().getDate()), String.valueOf(r.getFecha().getHours()+":"+r.getFecha().getMinutes()+"0"), m.getCalendario());
 		reservaService.deleteReservaById(reservaId);
 		return "redirect:/admin/maquinas/reservas/" + id + "/" + idMaquina;
 	}
-
-//	@PostMapping("/user/verMaquina/seleccionarHora/{id}/{idMaquina}")
-//	public String seleccionarHora(@PathVariable("idMaquina") Long idMaquina, @PathVariable("id") Long id, Model model, String fechaReserva) {
-//		Usuario usuario = usuarioService.findUsuarioById(id).get();
-//		model.addAttribute("usuario", usuario);
-//		ArrayList<String> horasDisp = new ArrayList<String>();	
-//		horasDisp.add("18:00");
-//		horasDisp.add("20:00");
-//		model.addAttribute("horasDisponiblesSB", horasDisp);
-//		model.addAttribute("maquina", (Maquina) maquinaService.findMaquinaById(idMaquina).orElseThrow());
-//		return "seleccionarHora";
-//	}
 
 }

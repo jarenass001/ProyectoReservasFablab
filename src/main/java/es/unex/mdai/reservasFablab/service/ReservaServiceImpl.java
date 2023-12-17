@@ -50,12 +50,12 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public Optional<Reserva> findReservasByUsuario(Usuario usuario) {
+	public Iterable<Reserva> findReservasByUsuario(Usuario usuario) {
 		return reservaR.findByUsuario(usuario);
 	}
 
 	@Override
-	public Optional<Reserva> findReservasByMaquina(Maquina maquina) {
+	public Iterable<Reserva> findReservasByMaquina(Maquina maquina) {
 		// TODO Auto-generated method stub
 		return reservaR.findByMaquina(maquina);
 	}

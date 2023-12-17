@@ -15,6 +15,8 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Calendario {
 	
+	
+	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -33,15 +35,6 @@ public class Calendario {
 	public Calendario(ArrayList<Fecha> fechasLibres, Maquina maquina) {
 		this.fechasLibres = fechasLibres;
 		this.maquina = maquina;
-	}
-
-	public void eliminarFecha(Fecha f) {
-		for (int i=0; i<fechasLibres.size(); i++) {
-			if (fechasLibres.get(i).getDia() == f.getDia() && fechasLibres.get(i).getHora().equals(f.getHora())) {
-				fechasLibres.remove(i);
-				return;
-			}
-		}
 	}
 	
 	public Maquina getMaquina() {

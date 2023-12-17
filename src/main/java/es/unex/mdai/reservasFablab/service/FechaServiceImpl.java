@@ -1,13 +1,13 @@
 package es.unex.mdai.reservasFablab.service;
 
-import java.util.Optional;
+import java.sql.Date;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.unex.mdai.reservasFablab.model.Calendario;
 import es.unex.mdai.reservasFablab.model.Fecha;
-import es.unex.mdai.reservasFablab.model.Maquina;
-import es.unex.mdai.reservasFablab.model.Usuario;
 import es.unex.mdai.reservasFablab.repository.FechaRepository;
 
 @Service
@@ -20,13 +20,19 @@ private final FechaRepository fechaR;
 		System.out.println("\t Constructor fechaServiceImpl ");
 		this.fechaR = fechaRepository;		
 	}
-	
-//	@Override
-//	public Optional<Fecha> findFechaByStringMaquina(String fechaHora, Maquina m) {
-//		fechaHora.split(" ");
-//		Iterable<Fecha> iterable = fechaR.findAll();
-//		iterable.forEach(fecha -> System.out.println(usuario.getUsername()));
-//		return Optional.empty();
-//	}
+
+	@Override
+	public void deleteFechaByDiaHoraCalendario(Date dia, String hora, Calendario calendario) {
+		ArrayList<Fecha> borrar = new ArrayList<Fecha>();
+		Iterable<Fecha> iterable = fechaR.findAll();
+		iterable.forEach(fecha -> {if (fecha.getDia().equals(dia) && fecha.getHora().equals(hora) && fecha.getCal().equals(calendario)) borrar.add(fecha); });
+		fechaR.delete(borrar.get(0));
+	}
+
+	@Override
+	public void createFecha(Date dia, String hora, Calendario calendario) {
+		Fecha fecha = new Fecha(dia, hora, calendario);
+		fechaR.save(fecha);
+	}
 
 }

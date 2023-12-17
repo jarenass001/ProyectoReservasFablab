@@ -1,5 +1,6 @@
 package es.unex.mdai.reservasFablab.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.unex.mdai.reservasFablab.model.Maquina;
 import es.unex.mdai.reservasFablab.model.Reserva;
 import es.unex.mdai.reservasFablab.model.Usuario;
+import es.unex.mdai.reservasFablab.service.FechaService;
 import es.unex.mdai.reservasFablab.service.ReservaService;
 import es.unex.mdai.reservasFablab.service.UsuarioService;
 
@@ -20,12 +22,14 @@ import es.unex.mdai.reservasFablab.service.UsuarioService;
 public class UsuarioController {
 	private final UsuarioService usuarioService;
 	private final ReservaService reservaService;
+	private final FechaService fechaService;
 
 	@Autowired
-	public UsuarioController(UsuarioService usuarioService, ReservaService reservaService) {
+	public UsuarioController(UsuarioService usuarioService, ReservaService reservaService, FechaService fechaService) {
 		super();
 		this.usuarioService = usuarioService;
 		this.reservaService = reservaService;
+		this.fechaService = fechaService;
 	}
 
 	@GetMapping("/")
@@ -124,11 +128,7 @@ public class UsuarioController {
 	public String verReservas(@PathVariable("id") Long id, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
-		if (reservaService.findReservasByUsuario(usuario).isPresent()) {
-			model.addAttribute("listaDeReservas", reservaService.findReservasByUsuario(usuario).get());
-		} else {
-			model.addAttribute("listaDeReservas", new ArrayList<Reserva>());
-		}
+		model.addAttribute("listaDeReservas", reservaService.findReservasByUsuario(usuario));
 		return "listarReservasUser";
 	}
 	
@@ -136,6 +136,8 @@ public class UsuarioController {
 	public String eliminarReserva(@PathVariable("id") Long id, @PathVariable("reservaId") Long reservaId, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
+		Reserva r = reservaService.findReservaById(reservaId).get();
+		fechaService.createFecha(new Date(r.getFecha().getYear(), r.getFecha().getMonth(), r.getFecha().getDate()), String.valueOf(r.getFecha().getHours()+":"+r.getFecha().getMinutes()+"0"), r.getMaquina().getCalendario());
 		reservaService.deleteReservaById(reservaId);
 		return "redirect:/user/verReservas/"+ id;
 	}

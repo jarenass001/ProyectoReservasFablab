@@ -18,8 +18,8 @@ public interface ReservaService {
 	
 	public Iterable <Reserva> findAllReservas();
 	
-	public Optional <Reserva> findReservasByUsuario(Usuario usuario);
+	public Iterable <Reserva> findReservasByUsuario(Usuario usuario);
 	
-	public Optional <Reserva> findReservasByMaquina(Maquina maquina);
+	public Iterable <Reserva> findReservasByMaquina(Maquina maquina);
 	
 }

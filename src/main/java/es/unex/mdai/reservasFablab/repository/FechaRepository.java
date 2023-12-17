@@ -10,6 +10,6 @@ import es.unex.mdai.reservasFablab.model.Maquina;
 
 public interface FechaRepository extends CrudRepository<Fecha, Long> {
 
-	//public Optional<Fecha> findAllByCalendarioMaquina(Calendario cal, Maquina m);
+	//public Optional<Fecha> findAllByCalendarioMaquina(Calendario cal, Maquina m)
 	
 }
