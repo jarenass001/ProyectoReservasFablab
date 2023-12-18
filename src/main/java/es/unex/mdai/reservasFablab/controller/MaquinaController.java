@@ -77,6 +77,10 @@ public class MaquinaController {
 	public String deleteMaquina(@PathVariable("idMaquina") Long idMaquina, @PathVariable("id") Long id, Model model) {
 		Usuario usuario = usuarioService.findUsuarioById(id).get();
 		model.addAttribute("usuario", usuario);
+		if(!reservaService.findReservasByMaquina(maquinaService.findMaquinaById(idMaquina).get()).equals(null)) {
+			Iterable<Reserva> reservas = reservaService.findReservasByMaquina(maquinaService.findMaquinaById(idMaquina).get());
+			reservas.forEach(r -> reservaService.deleteReservaById(r.getId()));
+		}
 		maquinaService.deleteMaquinaById(idMaquina);
 		return "redirect:/user/listarMaquinas/" + id;
 	}

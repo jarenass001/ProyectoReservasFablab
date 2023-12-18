@@ -32,7 +32,7 @@
     <a th:if="${admin}" th:href="@{'/admin/ListarUsuarios/' + ${usuario.id}}">Volver a la Lista de Usuarios</a>
     
     <!-- Botón para ver las reservas del usuario -->
-    <a th:href="@{'/user/verReservas/' + ${usuario.id}}">Ver Reservas</a>
+    <a th:href="@{'/user/verReservas/' + ${usuario.id} + '/' + ${usuarioBuscar.id}}">Ver Reservas</a>
     
     <a th:href="@{'/' + (${admin} ? 'admin' : 'user') + '/menuPrincipal/' + ${usuario.id}}">Volver al Menú Principal</a>
 </div>

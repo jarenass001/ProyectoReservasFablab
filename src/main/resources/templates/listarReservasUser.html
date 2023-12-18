@@ -31,7 +31,7 @@
 					<td th:text="${reserva.precioTotal}"></td>
 					<td th:text="${reserva.maquina}"></td>
 					<td>
-							<form th:action="@{'/user/deleteReserva/' + ${usuario.id} + '/' + ${reserva.id}}"
+							<form th:action="@{'/user/deleteReserva/' + ${usuario.id} + '/' + ${usuarioBuscar.id} + '/' + ${reserva.id}}"
 								th:method="post" style="display: inline;">
 								<button type="submit">Borrar</button>
 							</form>
@@ -40,7 +40,7 @@
 			</tbody>
 		</table>
 		<!-- Aquí podrías añadir enlaces o botones adicionales si es necesario -->
-		<a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${usuario.id}}">Volver a los detalles de usuario</a>
+		<a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${usuarioBuscar.id}}">Volver a los detalles de usuario</a>
 	</div>
 
 </body>
