@@ -45,11 +45,12 @@ button {
 button:hover {
     background-color: #45a049;
 }
-.alert{
+.alert {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #3498db; /* Borde azul claro */
     border-radius: 4px;
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: #ecf0f1; /* Fondo azul claro */
+    color: #3498db; /* Texto azul claro */
+    text-align: center;
 }
