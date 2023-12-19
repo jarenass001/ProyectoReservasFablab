@@ -26,7 +26,7 @@
                 <td th:text="${user.username}"></td>
                 <td>
                     <a th:href="@{'/user/VerUsuario/' + ${usuario.id} + '/' + ${user.id}}">Ver Detalles</a>
-                    <form th:action="@{'/admin/deleteUsuario/' + ${usuario.id}  + '/' + ${user.id}}" th:method="post" style="display: inline;">
+                    <form th:if="${user.id != 1}" th:action="@{'/admin/deleteUsuario/' + ${usuario.id}  + '/' + ${user.id}}" th:method="post" style="display: inline;">
                         <button type="submit">Borrar</button>
                     </form>
                 </td>
