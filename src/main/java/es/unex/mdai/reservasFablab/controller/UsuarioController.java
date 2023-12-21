@@ -147,6 +147,6 @@ public class UsuarioController {
 				String.valueOf(r.getFecha().getHours() + ":" + r.getFecha().getMinutes() + "0"),
 				r.getMaquina().getCalendario());
 		reservaService.deleteReservaById(reservaId);
-		return "redirect:/user/verReservas/" + id;
+		return "redirect:/user/verReservas/" + id + "/" + idConsulta;
 	}
 }
